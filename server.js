@@ -100,19 +100,13 @@ app.get('/generate-pdf', function(req, res){
       /* verifica existência de erro ou sucesso */  
       if(err){
          console.log("Algo errado por aqui...");
-     } else {
-         pdf.create(html,{}).toFile("./meuPdfLindao.pdf",(err, res) => {
-             /* verifica existência de erro ou sucesso */  
-             if(err){
-             } else {
-                 console.log(res);
-             }
-         }) //Pega os dados recebido e gera o arquivo PDF no local definido
-     }
+     } 
+      pdf.create(html, {}).toBuffer((err, buffer) => {
 
+        res.end(buffer);
+
+      })
+    
     })
-  })
-  
+  })  
 })
-
-        
