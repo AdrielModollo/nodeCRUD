@@ -1,12 +1,14 @@
 const express = require('express') 
 const bodyParser = require('body-parser')
+const pdf = require('html-pdf')
+const ejs = require('ejs');
+const fs = require('fs');
 const app = express()
+const { response } = require('express');
 
 const ObjectId = require('mongodb').ObjectID
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://Adriel:5aGGcwrUAnhnFdQo@cluster0.7vary.mongodb.net/crudNode?retryWrites=true&w=majority";
-
-app.use(bodyParser.urlencoded({ extended: true}))
 
 const client = new MongoClient(uri, { useNewUrlParser: true });
 MongoClient.connect(uri, (err, client) => {
@@ -19,6 +21,7 @@ MongoClient.connect(uri, (err, client) => {
 })
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json());
 
 app.set('view engine', 'ejs')
 
@@ -89,3 +92,27 @@ app.route('/delete/:id')
   })
 })
 
+//PDF
+app.get('/generate-pdf', function(req, res){
+  db.collection('data').find().toArray((err, results) => {
+    if (err) return console.log(err)
+    ejs.renderFile("./views/pdf.ejs",{data: results},(err, html) =>{
+      /* verifica existência de erro ou sucesso */  
+      if(err){
+         console.log("Algo errado por aqui...");
+     } else {
+         pdf.create(html,{}).toFile("./meuPdfLindao.pdf",(err, res) => {
+             /* verifica existência de erro ou sucesso */  
+             if(err){
+             } else {
+                 console.log(res);
+             }
+         }) //Pega os dados recebido e gera o arquivo PDF no local definido
+     }
+
+    })
+  })
+  
+})
+
+        
