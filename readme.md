@@ -1,3 +1,5 @@
+# Acessar aplicação no navegador: http://localhost:3000
+
 # Metódos e bibliotecas utilizada 
 
 npm init 
@@ -18,3 +20,4 @@ O método urlencoded dentro de body-parser diz ao body-parser para extrair dados
 # Banco de dados
 
 npm install mongodb --save 
+
