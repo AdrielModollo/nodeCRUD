@@ -4,9 +4,8 @@ const app = express()
 
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://Adriel:5aGGcwrUAnhnFdQo@cluster0.7vary.mongodb.net/crudNode?retryWrites=true&w=majority";
 
-app.use(bodyParser.urlencoded({ extended: true}))
+const uri = "mongodb+srv://Adriel:5aGGcwrUAnhnFdQo@cluster0.7vary.mongodb.net/crudNode?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri, { useNewUrlParser: true });
 MongoClient.connect(uri, (err, client) => {
@@ -18,23 +17,31 @@ MongoClient.connect(uri, (err, client) => {
     })
   })
 
+  app.use(bodyParser.urlencoded({ extended: true }))
 
-
-app.set('view engine', 'ejs') //chama nossa biblioteca ejs
-
-app.get('/', (req, res) => {
-    res.render('index.ejs')
-}) //faz leitura de nosso dados
-
-app.post('/show', (req, res) => {
-    db.collection('data').save(req.body, (err, result) => {
-        if (err) return console.log(err)
-
-    console.log('salvo no banco de dados')
-    res.redirect('/')
-    db.collection('data').find().toArray((err, results) => {
-        console.log(results)
-        })
-
+  app.set('view engine', 'ejs')
+  
+  app.get('/', (req, res) => {
+      res.render('index.ejs')
+  })
+  
+  app.get('/', (req, res) => {
+      var cursor = db.collection('data').find()
+  })
+  
+  app.get('/show', (req, res) => {
+      db.collection('data').find().toArray((err, results) => {
+          if (err) return console.log(err)
+          res.render('show.ejs', { data: results })
+  
+      })
+  })
+  
+  app.post('/show', (req, res) => {
+      db.collection('data').save(req.body, (err, result) => {
+          if (err) return console.log(err)
+  
+          console.log('Salvo no Banco de Dados')
+          res.redirect('/show')
     })
 })
