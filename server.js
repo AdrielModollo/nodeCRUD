@@ -10,3 +10,7 @@ app.set('view engine', 'ejs') //chama nossa biblioteca ejs
 app.get('/', (req, res) => {
     res.render('index.ejs')
 }) //faz leitura de nosso dados
+
+app.post('/show', (req, res) => {
+    console.log('Opa, tudo certo!')
+})
