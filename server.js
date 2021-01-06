@@ -1,0 +1,1 @@
+console.log("A Força está com você!")
