@@ -32,5 +32,9 @@ app.post('/show', (req, res) => {
 
     console.log('salvo no banco de dados')
     res.redirect('/')
+    db.collection('data').find().toArray((err, results) => {
+        console.log(results)
+        })
+
     })
 })
