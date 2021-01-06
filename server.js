@@ -8,5 +8,5 @@ app.listen(3000, function() {
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
-    res.send('Olá mundo!')
+    res.render('index.ejs')
 })
