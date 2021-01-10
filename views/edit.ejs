@@ -11,6 +11,8 @@
     <form action="/edit/<%= details._id %>" method="POST">
       <input type="text" value="<%= details.name %>" name="name">
       <input type="text" value="<%= details.surname %>" name="surname">
+      <input type="text" value="<%= details.notaUm %>" name="notaUm">
+      <input type="text" value="<%= details.notaDois %>" name="notaDois">
       <br />
       <button><a href="/show">Todos</a></button>
       <button type="submit">Editar</button>

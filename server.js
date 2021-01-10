@@ -6,9 +6,10 @@ const fs = require('fs');
 const app = express()
 const { response } = require('express');
 
+//Faz a comunicação com o banco de dados
 const ObjectId = require('mongodb').ObjectID
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://Adriel:5aGGcwrUAnhnFdQo@cluster0.7vary.mongodb.net/crudNode?retryWrites=true&w=majority";
+const uri = "mongodb+srv://Adriel:602835@cluster0.7vary.mongodb.net/crudNode?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri, { useNewUrlParser: true });
 MongoClient.connect(uri, (err, client) => {
@@ -67,11 +68,15 @@ app.route('/edit/:id')
   var id = req.params.id
   var name = req.body.name
   var surname = req.body.surname
+  var notaUm = req.body.notaUm
+  var notaDois = req.body.notaDois
 
   db.collection('data').updateOne({_id: ObjectId(id)}, {
     $set: {
       name: name,
-      surname: surname
+      surname: surname,
+      notaUm: notaUm,
+      notaDois: notaDois
     }
   }, (err, result) => {
     if (err) return res.send(err)
