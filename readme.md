@@ -2,8 +2,6 @@
 
 # Metódos e bibliotecas utilizada 
 
-npm init 
-
 npm install express --save 
 
 npm install ejs --save <- biblioteca para renderização do html
